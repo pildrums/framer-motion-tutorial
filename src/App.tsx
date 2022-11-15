@@ -4,12 +4,19 @@ import { motion } from "framer-motion";
 const boxVars = {
   hover: { scale: 1.5, rotateZ: 90 },
   click: { scale: 1, borderRadius: "100px" },
+  drag: { backgroundColor: "#2ecc71", transition: { duration: 10 } },
 };
 
 function App() {
   return (
     <Wrapper>
-      <Box variants={boxVars} whileHover="hover" whileTap="click" />
+      <Box
+        drag
+        variants={boxVars}
+        whileHover="hover"
+        whileTap="click"
+        whileDrag="drag"
+      />
     </Wrapper>
   );
 }
