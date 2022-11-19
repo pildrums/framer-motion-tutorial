@@ -1,29 +1,21 @@
 import styled from "styled-components";
-import { motion } from "framer-motion";
-import { useRef } from "react";
-
-const boxVars = {
-  hover: { scale: 1.5, rotateZ: 90 },
-  click: { scale: 1, borderRadius: "100px" },
-  drag: { backgroundColor: "#2ecc71" },
-};
+import { motion, useMotionValue, useTransform } from "framer-motion";
+import { useEffect } from "react";
 
 function App() {
-  const biggerBoxRef = useRef<HTMLDivElement>(null);
+  // useMotionValue: react state가 아니기 때문에 리랜더링 되지 않음
+  const x = useMotionValue(0);
+  /**
+   * @constant useTransform 한 값에서 다른 값 범위로 매핑하여 다른 motionValue의 output을 변환
+   */
+  const opacity = useTransform(x, [-800, 0, 800], [0.1, 1, 0.1]);
+  useEffect(() => {
+    // x.onChange(() => console.log(x.get()));
+    opacity.onChange(() => console.log(opacity.get()));
+  }, [opacity]);
   return (
     <Wrapper>
-      <BiggerBox ref={biggerBoxRef}>
-        <Box
-          drag
-          dragSnapToOrigin
-          dragElastic={1}
-          dragConstraints={biggerBoxRef}
-          variants={boxVars}
-          whileHover="hover"
-          whileTap="click"
-          whileDrag="drag"
-        />
-      </BiggerBox>
+      <Box style={{ x, opacity }} drag="x" dragSnapToOrigin />
     </Wrapper>
   );
 }
@@ -34,17 +26,6 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const BiggerBox = styled.div`
-  width: 600px;
-  height: 600px;
-  background: rgba(255, 255, 255, 0.4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* overflow: hidden; */
-  border-radius: 25%;
 `;
 
 const Box = styled(motion.div)`
