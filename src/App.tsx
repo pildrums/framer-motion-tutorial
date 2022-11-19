@@ -8,19 +8,24 @@ function App() {
   /**
    * @constant useTransform 한 값에서 다른 값 범위로 매핑하여 다른 motionValue의 output을 변환
    */
-  const opacity = useTransform(x, [-800, 0, 800], [0.1, 1, 0.1]);
-  useEffect(() => {
-    // x.onChange(() => console.log(x.get()));
-    opacity.onChange(() => console.log(opacity.get()));
-  }, [opacity]);
+  const rotate = useTransform(x, [-800, 0, 800], [-360, 0, 360]);
+  const gradient = useTransform(
+    x,
+    [-800, 0, 800],
+    [
+      "linear-gradient(135deg,#008fee,#0cee00)",
+      "linear-gradient(135deg,#ee0099,#eece00)",
+      "linear-gradient(135deg,#00eeb2,#ee5700)",
+    ],
+  );
   return (
-    <Wrapper>
-      <Box style={{ x, opacity }} drag="x" dragSnapToOrigin />
+    <Wrapper style={{ background: gradient }}>
+      <Box style={{ x, rotate }} drag="x" dragSnapToOrigin />
     </Wrapper>
   );
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled(motion.div)`
   width: 100vw;
   height: 100vh;
   display: flex;

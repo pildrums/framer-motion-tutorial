@@ -32,7 +32,7 @@ const GlobalStyle = createGlobalStyle`
     display: block;
   }
   /* HTML5 hidden-attribute fix for newer browsers */
-  *[hidden] {
+  * [hidden] {
       display: none;
   }
   body {
@@ -59,9 +59,8 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-weight: 300;
     font-family: 'Source Sans Pro', sans-serif;
-    color:black;
+    color: black;
     line-height: 1.2;
-    background:linear-gradient(135deg,#e09,#d0e);
   }
   a {
     text-decoration:none;
