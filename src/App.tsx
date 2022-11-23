@@ -26,7 +26,6 @@ const Circle = styled(motion.div)`
   width: 100px;
   height: 100px;
   background: #00a5ff;
-  border-radius: 50px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
 `;
 
@@ -35,8 +34,16 @@ function App() {
   const toggleClicked = () => setClicked((prev) => !prev);
   return (
     <Wrapper onClick={toggleClicked}>
-      <Box>{!clicked ? <Circle /> : null}</Box>
-      <Box>{clicked ? <Circle /> : null}</Box>
+      <Box>
+        {!clicked ? (
+          <Circle layoutId="circle" style={{ borderRadius: 50 }} />
+        ) : null}
+      </Box>
+      <Box>
+        {clicked ? (
+          <Circle layoutId="circle" style={{ borderRadius: 0, scale: 2 }} />
+        ) : null}
+      </Box>
     </Wrapper>
   );
 }
